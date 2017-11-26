@@ -18,7 +18,7 @@ public class StarvingQueue {
 	 * receives an orange and adds it to the list 
 	 * @param o Orange
 	 */
-	public synchronized void addPhilosopher(Philosopher p) {// = sendWork
+	public synchronized void addPhilosopher(Philosopher p) {
 		starvingPeople.add(p);
 		if (countPhilosophers() == 1) {
 			try {
@@ -27,11 +27,15 @@ public class StarvingQueue {
 		}
 	}
 	
+	public synchronized Philosopher getFirst() {
+		return starvingPeople.get(0);
+	}
+	
 	/**
 	 * removes the 0th element from the list
 	 * @return Orange oranges[0]
 	 */
-	public synchronized void takeOutPhilosopher() {// = getWork
+	public synchronized void takeOutPhilosopher() {
 		while (countPhilosophers() == 0) {
 			try {
 				wait();
