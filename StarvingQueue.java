@@ -1,57 +1,65 @@
 package eatingPackage;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Nate Williams
- * Original layout was fleshed out by Andrew Kerwin and I completed the modifications necessary for it to function
- * This class provides a list for workers add oranges to and take oranges from
+ * @author Cordell: Controls the queue of starvation so that the philosophers
+ *         will not starve
  */
+
 public class StarvingQueue {
-	private final List<Philosopher> starvingPeople;
-	
+	private final List<Philosopher> starvingPeople; // creates array of philosophers that are starving
+
 	StarvingQueue() {
-		starvingPeople = new ArrayList<Philosopher>(); 
+		starvingPeople = new ArrayList<Philosopher>(); // list of people next in the starving queue
 	}
-	
+
 	/**
-	 * receives an orange and adds it to the list 
-	 * @param o Orange
+	 * Adds philosopher to the starvation queue
+	 * 
+	 * @param p
 	 */
 	public synchronized void addPhilosopher(Philosopher p) {
-		starvingPeople.add(p);
+		starvingPeople.add(p); // adds a starving phil to the queue
 		if (countPhilosophers() == 1) {
 			try {
 				notifyAll();
-			} catch (Exception e) {}
+			} catch (Exception e) {
+			}
 		}
 	}
-	
-	public synchronized Philosopher getFirst() {
-		return starvingPeople.get(0);
-	}
-	
+
 	/**
-	 * removes the 0th element from the list
-	 * @return Orange oranges[0]
+	 * Sets a priority on a starving philosopher
+	 * 
+	 * @return starvingPeople.get
 	 */
-	public synchronized void takeOutPhilosopher() {
+	public synchronized Philosopher getFirst() {
+		return starvingPeople.get(0); //assures that the starving people go to the top of the queue for next to try and eat
+	}
+
+	/**
+	 * Removes the philosopher from the starvation queue
+	 */
+	public synchronized void takeOutPhilosopher() { //assures that once someone has eaten they are removed from the queue
 		while (countPhilosophers() == 0) {
 			try {
 				wait();
-			} catch (InterruptedException ignored) {}
+			} catch (InterruptedException ignored) {
+			}
 		}
 		starvingPeople.remove(0);
-		//edited to actually remove the orange from the list
-		
+
 	}
-	
+
 	/**
-	 * returns the number of oranges in the list
-	 * @return int oranges.size()
+	 * counts the number of people in the queue
+	 * 
+	 * @return starvingPeople.size
 	 */
 	public synchronized int countPhilosophers() {
 		return starvingPeople.size();
 	}
-	
+
 }
