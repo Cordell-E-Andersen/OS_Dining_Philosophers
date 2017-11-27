@@ -16,7 +16,7 @@ public class Controller {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Philosopher[] greatThinkers = new Philosopher[NUM_PHILOSOPHERS];// creates phils
+		Philosopher[] greatThinkers = new Philosopher[NUM_PHILOSOPHERS];// creates phil array
 		Cup centralCup = new Cup(); // creates cup
 		StarvingQueue starvationQueue = new StarvingQueue(); //creates starvation queue
 		for (int i = 0; i < NUM_PHILOSOPHERS; i++) { //names of phils so we can track who is eating and philosophizing

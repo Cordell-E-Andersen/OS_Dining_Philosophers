@@ -12,7 +12,7 @@ public class Cup {
 	private int stickCount;
 
 	/**
-	 * Creates varible stickCount declaring how many total sticks are available to
+	 * Creates variable stickCount declaring how many total sticks are available to
 	 * grab
 	 */
 	public Cup() {
